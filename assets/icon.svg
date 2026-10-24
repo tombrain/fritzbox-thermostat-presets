@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFC24B"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+    <linearGradient id="cool" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3FA9F5"/>
+      <stop offset="1" stop-color="#2D4FB8"/>
+    </linearGradient>
+    <clipPath id="dial">
+      <circle cx="256" cy="256" r="204"/>
+    </clipPath>
+    <mask id="crescent">
+      <circle cx="334" cy="334" r="62" fill="#fff"/>
+      <circle cx="362" cy="306" r="54" fill="#000"/>
+    </mask>
+  </defs>
+
+  <!-- Thermostat knob ring -->
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#8FA3AD" stroke-width="24"/>
+
+  <!-- Comfort (warm) and reduced (cool) halves -->
+  <g clip-path="url(#dial)">
+    <polygon points="0,0 512,0 0,512" fill="url(#warm)"/>
+    <polygon points="512,0 512,512 0,512" fill="url(#cool)"/>
+    <line x1="0" y1="512" x2="512" y2="0" stroke="#fff" stroke-width="12"/>
+  </g>
+
+  <!-- Sun -->
+  <g fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" transform="translate(178 178)">
+    <circle r="40" fill="#fff" stroke="none"/>
+    <line x1="0" y1="-60" x2="0" y2="-84"/>
+    <line x1="0" y1="60" x2="0" y2="84"/>
+    <line x1="-60" y1="0" x2="-84" y2="0"/>
+    <line x1="60" y1="0" x2="84" y2="0"/>
+    <line x1="42" y1="-42" x2="59" y2="-59"/>
+    <line x1="-42" y1="-42" x2="-59" y2="-59"/>
+    <line x1="42" y1="42" x2="59" y2="59"/>
+    <line x1="-42" y1="42" x2="-59" y2="59"/>
+  </g>
+
+  <!-- Moon -->
+  <rect x="250" y="250" width="160" height="160" fill="#fff" mask="url(#crescent)"/>
+</svg>

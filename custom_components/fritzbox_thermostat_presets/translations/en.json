@@ -1,0 +1,53 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Fritzbox",
+        "description": "Requires FRITZ!OS 8.20 or newer. The user needs the rights 'Smart Home' and 'FRITZ!Box settings'.",
+        "data": {
+          "host": "Host",
+          "username": "Username",
+          "password": "Password"
+        },
+        "data_description": {
+          "host": "Hostname or IP address of the Fritzbox, usually fritz.box"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate",
+        "description": "Login to {host} failed. Please enter the credentials again.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication or missing user rights",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This Fritzbox is already configured",
+      "reauth_successful": "Re-authentication was successful"
+    }
+  },
+  "entity": {
+    "number": {
+      "comfort_temperature": {
+        "name": "Comfort temperature"
+      },
+      "reduced_temperature": {
+        "name": "Reduced temperature"
+      }
+    }
+  },
+  "exceptions": {
+    "missing_rights": {
+      "message": "Access denied. The Fritzbox user needs the right 'FRITZ!Box settings' to change temperatures."
+    },
+    "set_failed": {
+      "message": "Could not set temperature: {error}"
+    }
+  }
+}

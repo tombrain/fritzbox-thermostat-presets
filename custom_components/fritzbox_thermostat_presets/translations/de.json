@@ -1,0 +1,53 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit Fritzbox verbinden",
+        "description": "Voraussetzung ist FRITZ!OS 8.20 oder neuer. Der Benutzer benötigt die Rechte 'Smart Home' und 'FRITZ!Box Einstellungen'.",
+        "data": {
+          "host": "Host",
+          "username": "Benutzername",
+          "password": "Passwort"
+        },
+        "data_description": {
+          "host": "Hostname oder IP-Adresse der Fritzbox, meist fritz.box"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Erneut anmelden",
+        "description": "Die Anmeldung an {host} ist fehlgeschlagen. Bitte die Zugangsdaten erneut eingeben.",
+        "data": {
+          "username": "Benutzername",
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "invalid_auth": "Anmeldung fehlgeschlagen oder fehlende Benutzerrechte",
+      "unknown": "Unerwarteter Fehler"
+    },
+    "abort": {
+      "already_configured": "Diese Fritzbox ist bereits eingerichtet",
+      "reauth_successful": "Erneute Anmeldung erfolgreich"
+    }
+  },
+  "entity": {
+    "number": {
+      "comfort_temperature": {
+        "name": "Komforttemperatur"
+      },
+      "reduced_temperature": {
+        "name": "Absenktemperatur"
+      }
+    }
+  },
+  "exceptions": {
+    "missing_rights": {
+      "message": "Zugriff verweigert. Der Fritzbox-Benutzer benötigt das Recht 'FRITZ!Box Einstellungen', um Temperaturen zu ändern."
+    },
+    "set_failed": {
+      "message": "Temperatur konnte nicht gesetzt werden: {error}"
+    }
+  }
+}

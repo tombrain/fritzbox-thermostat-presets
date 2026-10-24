@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set version in manifest.json
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          jq --arg v "$version" '.version = $v' custom_components/fritzbox_thermostat_presets/manifest.json > manifest.tmp
+          mv manifest.tmp custom_components/fritzbox_thermostat_presets/manifest.json
+      - name: Create zip
+        run: cd custom_components/fritzbox_thermostat_presets && zip -r ../../fritzbox_thermostat_presets.zip .
+      - name: Upload zip to release
+        run: gh release upload "$GITHUB_REF_NAME" fritzbox_thermostat_presets.zip
+        env:
+          GH_TOKEN: ${{ github.token }}

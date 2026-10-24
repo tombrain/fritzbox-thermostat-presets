@@ -1,0 +1,14 @@
+# Local Home Assistant instance for testing the custom integration.
+# Start: docker compose up -d   ->  http://localhost:8123
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: ha-dev
+    ports:
+      - "8123:8123"
+    volumes:
+      - ./config:/config
+      - ../custom_components:/config/custom_components
+    environment:
+      - TZ=Europe/Berlin
+    restart: unless-stopped

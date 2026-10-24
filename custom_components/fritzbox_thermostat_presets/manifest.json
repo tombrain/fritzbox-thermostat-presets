@@ -1,0 +1,13 @@
+{
+  "domain": "fritzbox_thermostat_presets",
+  "name": "Thermostat Presets for Fritzbox",
+  "codeowners": ["@tombrain"],
+  "config_flow": true,
+  "dependencies": ["diagnostics"],
+  "documentation": "https://github.com/tombrain/fritzbox-thermostat-presets",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/tombrain/fritzbox-thermostat-presets/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,48 @@
+name: Bug report
+description: Something doesn't work as expected
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: integration_version
+    attributes:
+      label: Integration version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: ha_version
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.10.3"
+    validations:
+      required: true
+  - type: input
+    id: fritzbox
+    attributes:
+      label: Fritzbox model and FRITZ!OS version
+      placeholder: "7590 AX, FRITZ!OS 8.21"
+    validations:
+      required: true
+  - type: input
+    id: thermostats
+    attributes:
+      label: Thermostat models
+      placeholder: "FRITZ!DECT 301"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant log lines with debug logging enabled (see README → Troubleshooting).
+      render: text
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Drag & drop the diagnostics file here (Settings → Devices & services → ⋮ → Download diagnostics).
