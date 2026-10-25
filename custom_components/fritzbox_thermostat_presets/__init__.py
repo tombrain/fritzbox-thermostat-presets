@@ -1,4 +1,4 @@
-"""Thermostat Presets for Fritzbox: comfort and reduced temperature of FRITZ!DECT thermostats."""
+"""Thermostat Presets for Fritzbox: comfort and eco temperature of FRITZ!DECT thermostats."""
 
 from __future__ import annotations
 

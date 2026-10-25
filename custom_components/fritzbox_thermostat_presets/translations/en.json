@@ -37,8 +37,8 @@
       "comfort_temperature": {
         "name": "Comfort temperature"
       },
-      "reduced_temperature": {
-        "name": "Reduced temperature"
+      "eco_temperature": {
+        "name": "Eco temperature"
       }
     }
   },

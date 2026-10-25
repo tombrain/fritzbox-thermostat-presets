@@ -35,10 +35,10 @@
   "entity": {
     "number": {
       "comfort_temperature": {
-        "name": "Komforttemperatur"
+        "name": "Komfort-Temperatur"
       },
-      "reduced_temperature": {
-        "name": "Absenktemperatur"
+      "eco_temperature": {
+        "name": "Eco-Temperatur"
       }
     }
   },

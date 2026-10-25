@@ -1,4 +1,4 @@
-"""Number entities for comfort and reduced temperature."""
+"""Number entities for comfort and eco temperature."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from .coordinator import ThermostatPresetsConfigEntry, ThermostatPresetsCoordina
 # translation_key -> field in thermostatInterface
 TEMPERATURE_KEYS = {
     "comfort_temperature": "comfortTemperature",
-    "reduced_temperature": "reducedTemperature",
+    "eco_temperature": "reducedTemperature",
 }
 
 

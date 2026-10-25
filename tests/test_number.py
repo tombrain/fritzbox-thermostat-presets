@@ -15,7 +15,7 @@ from custom_components.fritzbox_thermostat_presets.api import FritzAuthError, Fr
 from .conftest import UID
 
 COMFORT = "number.living_room_comfort_temperature"
-REDUCED = "number.living_room_reduced_temperature"
+ECO = "number.living_room_eco_temperature"
 
 
 async def setup_integration(hass: HomeAssistant, entry: MockConfigEntry) -> None:
@@ -28,7 +28,7 @@ async def test_entities(hass: HomeAssistant, mock_api: AsyncMock, config_entry: 
     await setup_integration(hass, config_entry)
     assert config_entry.state is ConfigEntryState.LOADED
     assert hass.states.get(COMFORT).state == "22.0"
-    assert hass.states.get(REDUCED).state == "19.0"
+    assert hass.states.get(ECO).state == "19.0"
 
 
 async def test_set_value(hass: HomeAssistant, mock_api: AsyncMock, config_entry: MockConfigEntry) -> None:
@@ -47,7 +47,7 @@ async def test_set_value_error(
     mock_api.set_temperature.side_effect = side_effect("boom")
     with pytest.raises(HomeAssistantError):
         await hass.services.async_call(
-            NUMBER_DOMAIN, SERVICE_SET_VALUE, {ATTR_ENTITY_ID: REDUCED, ATTR_VALUE: 18}, blocking=True
+            NUMBER_DOMAIN, SERVICE_SET_VALUE, {ATTR_ENTITY_ID: ECO, ATTR_VALUE: 18}, blocking=True
         )
 
 

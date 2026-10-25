@@ -12,11 +12,11 @@
 
 🇩🇪 [Deutsche Anleitung](README.de.md)
 
-A Home Assistant custom integration to change the **comfort** and **reduced (setback)
+A Home Assistant custom integration to change the **comfort** and **eco (reduced)**
 temperature** of FRITZ!DECT radiator thermostats connected to a Fritzbox.
 
 The built-in AVM FRITZ!SmartHome integration can only change the current target temperature.
-The comfort and reduced temperatures used by the thermostat's schedule can only be changed in
+The comfort and eco temperatures used by the thermostat's schedule can only be changed in
 the Fritzbox web UI. This integration makes them available as entities, so you can change them
 from dashboards, scripts and automations.
 
@@ -26,7 +26,7 @@ from dashboards, scripts and automations.
 
 ## Features
 
-- Two entities per thermostat: **Comfort temperature** and **Reduced temperature**
+- Two entities per thermostat: **Comfort temperature** and **Eco temperature**
   (8–28 °C, 0.5 °C steps)
 - Uses the official, documented
   [FRITZ! Smart Home REST API](https://fritz.support/resources/SmarthomeRestApiFRITZOS82.html)
@@ -87,10 +87,10 @@ Every thermostat appears as a device with two entities in the **Configuration** 
 | Entity | Description |
 |---|---|
 | `number.<thermostat>_comfort_temperature` | Comfort temperature (schedule "heating" periods) |
-| `number.<thermostat>_reduced_temperature` | Reduced temperature (schedule "setback" periods) |
+| `number.<thermostat>_eco_temperature` | Eco temperature (schedule "setback" periods) |
 
 The entity IDs depend on the thermostat name and the language of your Home Assistant at the
-time of setup. With a German UI they are e.g. `number.living_room_komforttemperatur`.
+time of setup. With a German UI they are e.g. `number.living_room_komfort_temperatur`.
 
 ### Dashboard card
 
@@ -99,7 +99,7 @@ type: entities
 title: Heating living room
 entities:
   - entity: number.living_room_comfort_temperature
-  - entity: number.living_room_reduced_temperature
+  - entity: number.living_room_eco_temperature
 ```
 
 ### Action

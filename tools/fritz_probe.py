@@ -1,4 +1,4 @@
-"""Probe script: read and set comfort/reduced temperatures of FRITZ!DECT thermostats.
+"""Probe script: read and set comfort/eco temperatures of FRITZ!DECT thermostats.
 
 Uses the official FRITZ! Smart Home REST API (FRITZ!OS 8.20+):
 https://fritz.support/resources/SmarthomeRestApiFRITZOS82.html
@@ -6,7 +6,7 @@ https://fritz.support/resources/SmarthomeRestApiFRITZOS82.html
 Usage:
     python tools/fritz_probe.py --user myuser                      # list thermostats
     python tools/fritz_probe.py --user myuser --get "<UID>"        # full unit configuration as JSON
-    python tools/fritz_probe.py --user myuser --uid "<UID>" --comfort 21.5 --reduced 18
+    python tools/fritz_probe.py --user myuser --uid "<UID>" --comfort 21.5 --eco 18
 
 The password is read from the FRITZ_PASSWORD environment variable or prompted for.
 Reading needs the 'Smart Home' user right, changing the configuration needs
@@ -102,25 +102,25 @@ def list_thermostats(host: str, sid: str) -> None:
         print(f"{unit.get('name')}  (UID: {unit.get('UID')})")
         print(f"  Soll:     {format_temp(thermostat.get('setPointTemperature'))}")
         print(f"  Komfort:  {format_temp(thermostat.get('comfortTemperature'))}")
-        print(f"  Absenk:   {format_temp(thermostat.get('reducedTemperature'))}")
+        print(f"  Eco:      {format_temp(thermostat.get('reducedTemperature'))}")
         print()
 
     if not found:
         print("No thermostats found.")
 
 
-def set_temperatures(host: str, sid: str, uid: str, comfort: float | None, reduced: float | None) -> None:
+def set_temperatures(host: str, sid: str, uid: str, comfort: float | None, eco: float | None) -> None:
     thermostat = {}
     if comfort is not None:
         thermostat["comfortTemperature"] = {"mode": "temperature", "celsius": comfort}
-    if reduced is not None:
-        thermostat["reducedTemperature"] = {"mode": "temperature", "celsius": reduced}
+    if eco is not None:
+        thermostat["reducedTemperature"] = {"mode": "temperature", "celsius": eco}
 
     api(host, sid, "PUT", unit_path("configuration", uid), {"interfaces": {"thermostatInterface": thermostat}})
 
     result = api(host, sid, "GET", unit_path("overview", uid))["interfaces"]["thermostatInterface"]
     print(f"Komfort:  {format_temp(result.get('comfortTemperature'))}")
-    print(f"Absenk:   {format_temp(result.get('reducedTemperature'))}")
+    print(f"Eco:      {format_temp(result.get('reducedTemperature'))}")
 
 
 def main() -> None:
@@ -128,13 +128,13 @@ def main() -> None:
     parser.add_argument("--host", default="fritz.box")
     parser.add_argument("--user", required=True)
     parser.add_argument("--get", metavar="UID", help="print the full configuration of one unit as JSON")
-    parser.add_argument("--uid", help="unit to change (use with --comfort/--reduced)")
+    parser.add_argument("--uid", help="unit to change (use with --comfort/--eco)")
     parser.add_argument("--comfort", type=float, help="new comfort temperature in °C (0.5 steps)")
-    parser.add_argument("--reduced", type=float, help="new reduced temperature in °C (0.5 steps)")
+    parser.add_argument("--eco", type=float, help="new eco temperature in °C (0.5 steps)")
     args = parser.parse_args()
 
-    if (args.comfort is not None or args.reduced is not None) and not args.uid:
-        parser.error("--comfort/--reduced require --uid")
+    if (args.comfort is not None or args.eco is not None) and not args.uid:
+        parser.error("--comfort/--eco require --uid")
 
     password = os.environ.get("FRITZ_PASSWORD") or getpass.getpass("FRITZ!Box password: ")
     sid = login(args.host, args.user, password)
@@ -146,7 +146,7 @@ def main() -> None:
                 )
             )
         elif args.uid:
-            set_temperatures(args.host, sid, args.uid, args.comfort, args.reduced)
+            set_temperatures(args.host, sid, args.uid, args.comfort, args.eco)
         else:
             list_thermostats(args.host, sid)
     finally:

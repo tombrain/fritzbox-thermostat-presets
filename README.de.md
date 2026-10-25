@@ -6,11 +6,11 @@
 
 🇬🇧 [English documentation](README.md)
 
-Eine Home-Assistant-Integration, mit der du die **Komforttemperatur** und die
-**Absenktemperatur** deiner FRITZ!DECT-Heizkörperregler an der Fritzbox ändern kannst.
+Eine Home-Assistant-Integration, mit der du die **Komfort-Temperatur** und die
+**Eco-Temperatur** (Absenktemperatur) deiner FRITZ!DECT-Heizkörperregler an der Fritzbox ändern kannst.
 
 Die mitgelieferte AVM-FRITZ!SmartHome-Integration kann nur die aktuelle Solltemperatur setzen.
-Komfort- und Absenktemperatur, die der Zeitplan des Thermostats verwendet, lassen sich sonst
+Komfort- und Eco-Temperatur, die der Zeitplan des Thermostats verwendet, lassen sich sonst
 nur in der Fritzbox-Oberfläche ändern. Diese Integration stellt sie als Entitäten bereit, damit
 du sie in Dashboards, Skripten und Automationen nutzen kannst.
 
@@ -20,7 +20,7 @@ du sie in Dashboards, Skripten und Automationen nutzen kannst.
 
 ## Funktionen
 
-- Zwei Entitäten pro Thermostat: **Komforttemperatur** und **Absenktemperatur**
+- Zwei Entitäten pro Thermostat: **Komfort-Temperatur** und **Eco-Temperatur**
   (8–28 °C, 0,5-°C-Schritte)
 - Nutzt die offizielle, dokumentierte
   [FRITZ! Smart Home REST-API](https://fritz.support/resources/SmarthomeRestApiFRITZOS82.html)
@@ -81,12 +81,12 @@ Jedes Thermostat erscheint als Gerät mit zwei Entitäten im Bereich **Konfigura
 
 | Entität | Bedeutung |
 |---|---|
-| `number.<thermostat>_komforttemperatur` | Komforttemperatur (Heizzeiten im Zeitplan) |
-| `number.<thermostat>_absenktemperatur` | Absenktemperatur (Absenkzeiten im Zeitplan) |
+| `number.<thermostat>_komfort_temperatur` | Komfort-Temperatur (Heizzeiten im Zeitplan) |
+| `number.<thermostat>_eco_temperatur` | Eco-Temperatur (Absenkzeiten im Zeitplan) |
 
 Die Entitäts-IDs hängen vom Namen des Thermostats und von der Sprache ab, die Home Assistant
 bei der Einrichtung hatte. Mit englischer Oberfläche heißen sie z. B.
-`number.wohnzimmer_comfort_temperature`.
+`number.wohnzimmer_comfort_temperature` bzw. `number.wohnzimmer_eco_temperature`.
 
 ### Dashboard-Karte
 
@@ -94,8 +94,8 @@ bei der Einrichtung hatte. Mit englischer Oberfläche heißen sie z. B.
 type: entities
 title: Heizung Wohnzimmer
 entities:
-  - entity: number.wohnzimmer_komforttemperatur
-  - entity: number.wohnzimmer_absenktemperatur
+  - entity: number.wohnzimmer_komfort_temperatur
+  - entity: number.wohnzimmer_eco_temperatur
 ```
 
 ### Aktion
@@ -103,7 +103,7 @@ entities:
 ```yaml
 action: number.set_value
 target:
-  entity_id: number.wohnzimmer_komforttemperatur
+  entity_id: number.wohnzimmer_komfort_temperatur
 data:
   value: 21.5
 ```
@@ -112,7 +112,7 @@ data:
 
 ```yaml
 automation:
-  - alias: "Komforttemperatur bei Frost erhöhen"
+  - alias: "Komfort-Temperatur bei Frost erhöhen"
     triggers:
       - trigger: numeric_state
         entity_id: sensor.aussentemperatur
@@ -120,11 +120,11 @@ automation:
     actions:
       - action: number.set_value
         target:
-          entity_id: number.wohnzimmer_komforttemperatur
+          entity_id: number.wohnzimmer_komfort_temperatur
         data:
           value: 22.5
 
-  - alias: "Komforttemperatur normal"
+  - alias: "Komfort-Temperatur normal"
     triggers:
       - trigger: numeric_state
         entity_id: sensor.aussentemperatur
@@ -132,7 +132,7 @@ automation:
     actions:
       - action: number.set_value
         target:
-          entity_id: number.wohnzimmer_komforttemperatur
+          entity_id: number.wohnzimmer_komfort_temperatur
         data:
           value: 21.5
 ```
