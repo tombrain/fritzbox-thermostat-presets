@@ -46,12 +46,7 @@ async def test_keep_last_value_on_transient_connection_error(
     assert hass.states.get(COMFORT).state == "22.0"
 
     mock_api.get_thermostats.side_effect = FritzConnectionError("temporary outage")
-    await hass.services.async_call(
-        "homeassistant",
-        "update_entity",
-        {ATTR_ENTITY_ID: COMFORT},
-        blocking=True,
-    )
+    await config_entry.runtime_data.async_refresh()
     await hass.async_block_till_done()
 
     assert hass.states.get(COMFORT).state == "22.0"
