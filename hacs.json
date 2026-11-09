@@ -6,6 +6,5 @@
   "hide_default_branch": true,
   "render_readme": true,
   "country": ["de", "us"],
-  "icon": "mdi:thermometer",
   "zip_release": true
 }
