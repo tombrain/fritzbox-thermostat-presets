@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-11-09
+
+### Changed
+
+- Use the Home Assistant brand assets from `brand/` so the integration icon is shown consistently in Home Assistant and HACS.
+
 ## [0.1.2] - 2026-11-09
 
 ### Fixed
