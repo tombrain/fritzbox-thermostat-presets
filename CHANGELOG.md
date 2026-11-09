@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-09
+
+### Fixed
+
+- Keep the last valid thermostat values during short FRITZ!Box connectivity outages instead of immediately switching entities to unavailable.
+- Align entity labels with AVM wording: "Komfort-Temperatur" and "Eco-Temperatur".
+
 ## [0.1.1] - 2026-10-25
 
 ### Changed

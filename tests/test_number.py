@@ -39,6 +39,20 @@ async def test_set_value(hass: HomeAssistant, mock_api: AsyncMock, config_entry:
     mock_api.set_temperature.assert_awaited_once_with(UID, "comfortTemperature", 21.5)
 
 
+async def test_keep_last_value_on_transient_connection_error(
+    hass: HomeAssistant, mock_api: AsyncMock, config_entry: MockConfigEntry
+) -> None:
+    await setup_integration(hass, config_entry)
+    assert hass.states.get(COMFORT).state == "22.0"
+
+    mock_api.get_thermostats.side_effect = FritzConnectionError("temporary outage")
+    await hass.helpers.entity_component.async_update_entity(COMFORT)
+    await hass.async_block_till_done()
+
+    assert hass.states.get(COMFORT).state == "22.0"
+    assert hass.states.get(COMFORT).state != "unavailable"
+
+
 @pytest.mark.parametrize("side_effect", [FritzAuthError, FritzConnectionError])
 async def test_set_value_error(
     hass: HomeAssistant, mock_api: AsyncMock, config_entry: MockConfigEntry, side_effect: type[Exception]

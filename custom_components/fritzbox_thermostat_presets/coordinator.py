@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .api import FritzAuthError, FritzError, FritzSmartHomeApi
+from .api import FritzAuthError, FritzConnectionError, FritzError, FritzSmartHomeApi
 from .const import DOMAIN, LOGGER, UPDATE_INTERVAL
 
 type ThermostatPresetsConfigEntry = ConfigEntry[ThermostatPresetsCoordinator]
@@ -27,5 +27,10 @@ class ThermostatPresetsCoordinator(DataUpdateCoordinator[dict[str, dict[str, Any
             return await self.api.get_thermostats()
         except FritzAuthError as err:
             raise ConfigEntryAuthFailed(str(err)) from err
+        except FritzConnectionError as err:
+            if self.data:
+                LOGGER.warning("FRITZ!Box temporarily unavailable; keeping last successful thermostat data: %s", err)
+                return self.data
+            raise UpdateFailed(str(err)) from err
         except FritzError as err:
             raise UpdateFailed(str(err)) from err
